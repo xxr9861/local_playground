@@ -1,3 +1,5 @@
+#! /bin/bash
+
 # usage: chmod +x and add to xfce panel
 # what it does: xfce panel launcher/button to copy path of videos being played into a text file
 

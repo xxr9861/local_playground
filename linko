@@ -1,3 +1,5 @@
+#! /bin/bash
+
 # usage: linko input_file.html
 # what it does: extracts video links from html files and creates symbolic links to them in current directory
 
