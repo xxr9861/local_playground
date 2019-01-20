@@ -1,0 +1,51 @@
+# usage: chmod +x and add to xfce panel
+# what it does: xfce panel launcher/button to copy path of videos being played into a text file
+
+output_file="/home/majhi/link_file"
+
+get_the_video_file_name(){
+
+    video_file_name=$(cat /proc/$(pidof mplayer)/cmdline | sed -e 's/mplayer//g'  )
+}
+
+convert_to_html_syntax(){
+echo \<p\>\<\/p\>
+echo \<video src=\"$(echo $video_file_name| sed -e 's/-vfscreenshot//g')\" controls=\"controls\" loop=\"loop\" \>\<\/video\>
+echo \<p\>\<\/p\>
+
+}
+
+write_to_file(){
+
+convert_to_html_syntax >> $output_file
+    
+    }
+
+get_the_video_file_name
+write_to_file
+
+
+# usage: chmod +x and add to xfce panel
+# play videos (one at a time) with mplayer
+# mplayer -vf screenshot (take screenshots by pressing s key)
+# alias mplayer='mplayer -vf screenshot'
+# while playing video in mplayer click on xfce launcher pointing at this script
+# concurrently add comments to identify videos with something like follows
+####################
+# comment(){
+# clear
+# echo -e -n "local log >>> "
+
+# read junk
+# echo "$junk"|tr -cd "[:print:]\n" >> ~/link_file
+# clear
+# # where blogthis is a file in your home folder
+
+# comment "$*"
+
+# }
+
+# comment "$*"
+####################
+
+# manually retrieve the text from link_file and stick it into your html file

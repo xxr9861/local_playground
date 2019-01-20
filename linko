@@ -1,0 +1,46 @@
+# usage: linko input_file.html
+# what it does: extracts video links from html files and creates symbolic links to them in current directory
+
+# variables
+temp_file="/tmp/tempxxyyzz.txt"
+placeholder="/home/majhi/placeholder"
+input_file="$@"
+
+# Extract all the video links from html file to a plain text file 
+preprocessxx(){
+echo  >"$temp_file"
+touch $temp_file;
+input_file="$@"
+
+# create a directory with common name elements in that input html file
+mkdir video_links_$input_file
+targetdir="video_links_$input_file"
+
+# Remove html artefacts with sed filter
+cat $input_file | grep /home/majhi | sed -e 's/<video\ src\=\"//g' -e 's/\"\ controls\=\"controls\"\ loop\=\"loop\"//g' -e 's/><\/video>//g' -e 's/file:\/\// /g'
+
+}>>$temp_file
+
+
+# Create symbolic links to all those "video file path" extracted from the input file
+program(){
+input_file=$temp_file
+target=0001
+while read line
+do
+ln -s $line vid$target.mp4
+target=$((target+1))
+done<$input_file
+}
+
+preprocessxx $*
+
+program $*
+
+# Rename the temporary text file to another name (does not matter as it would be removed anyway)
+mv /tmp/tempxxyyzz.txt /home/majhi/$(echo -n $(date) | sed -e 's/\ /_/g' -e 's/:/_/g')vidlink.txt
+
+# Move all the symbolic links to the newly created directory
+mv vid{1..300}.mp4 $targetdir
+
+
