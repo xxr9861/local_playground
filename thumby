@@ -1,0 +1,34 @@
+#!/bin/sh
+
+# usage: this is run from another script, rather from feh --action "this_script.sh %f"
+# what it does: outputs a thumbnail file, rather a smaller file as you browse through you list of images
+
+##############################################################################
+
+file="/home/majhi/counter"
+name=$(cat "$file")
+
+# the $file points to a file that contains a number, maybe 1000 or 4007 or whatever. We read that integer from that file and update it
+# each time we run the script.
+
+##############################################################################
+#each time you start this, you would have to reset your counter to some prev value or maybe not as each value will be unique anyway
+##############################################################################
+
+thumb(){
+
+/usr/bin/convert -define jpeg:size=550x350 "$line" -strip -thumbnail 900x500 $@ ./thumb$name.jpg
+
+# the arguments to convert are kind of dodgy but it works
+
+
+ name=$((name+=1))
+ echo $name >$file
+
+}
+
+thumb $*
+
+
+
+                                                                                                                                                                             
