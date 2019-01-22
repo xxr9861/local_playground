@@ -19,7 +19,7 @@ mkdir video_links_$input_file
 targetdir="video_links_$input_file"
 
 # Remove html artefacts with sed filter
-cat $input_file | grep /home/majhi | sed -e 's/<video\ src\=\"//g' -e 's/\"\ controls\=\"controls\"\ loop\=\"loop\"//g' -e 's/><\/video>//g' -e 's/file:\/\// /g'
+cat $input_file | grep /home/majhi | sed -e 's/<video\ src\=\"//g' -e 's/\"\ controls\=\"controls\"\ loop\=\"loop\"//g' -e 's/><\/video>//g' -e 's/file:\/\// /g' -e 's/-vfscreenshot//g'
 
 }>>$temp_file
 
